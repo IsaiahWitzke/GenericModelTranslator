@@ -1,0 +1,8 @@
+token name,sql regex,regex description
+class_name,(?i)[\n\r.]*CREATE TABLE\s*([^\n\r ]*),any word after "CREATE TABLE"
+nullable,(?i)(?<!NOT )(NULL),any word "NULL" without a "NOT" in front
+not_nullable,(?i)(NOT NULL),gives any "NOT NULL"
+max_size,(?i)varchar\(([0-9]*)(?=\)),gives the x inside a "varchar(x)"
+type,(?i)^(?:\s*\S+ ){1}([a-zA-Z]+),gives the second word in a sentence
+field_name,(?i)^[\t ]*((\w|_)*),gives the first word in a sentence.
+id,(?i)(PRIMARY KEY),gives any "PRIMARY KEY"
