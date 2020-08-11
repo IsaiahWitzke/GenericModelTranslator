@@ -11,11 +11,7 @@
         @Id
         private Long bankAccountId;
         @NonNull
-        @Size(min = 0, max = 255)
-        private String accountHolderName;
-        @Nullable
-        @Size(min = 0, max = 255)
-        private String accountHolderAddr;
+        private Long userId;
         @NonNull
         private int accountValue;
         // TODO: add custom constructors here

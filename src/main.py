@@ -1,15 +1,14 @@
 import sqlparse
-from sqlparse.tokens import Keyword, DDL, Whitespace
-from sqlparse.sql import Identifier
 import custom_functions
 import re
 import xml.etree.ElementTree as ET
 import csv
+import pathlib
 
-base_path = "C:\\Users\\witzk\\Desktop\\WorkReport\\"
-input_folder_path = base_path + "input\\"
-output_folder_path = base_path + "output\\"
-templates_folder_path = base_path + "templates\\"
+base_path = "/home/ubuntu/git/GenericModelTranslator/"
+input_folder_path = base_path + "input/"
+output_folder_path = base_path + "output/"
+templates_folder_path = base_path + "templates/"
 
 input_file_name = "test_table_1.sql"
 token_regex_table_file = base_path + "token_regex_table.csv"
@@ -18,10 +17,10 @@ lang_file_ending = ".java"
 input_sql_file = input_folder_path + input_file_name
 template_file = templates_folder_path + lang + "_template.xml"
 
-# replaces all "\n \n"s with "\n" recursivly
+# replaces all "\n \n"s with "\n" recursively
 def remove_excess_new_lines(text, removed_none_last=False):
     if removed_none_last:
-        return text;
+        return text
     new_text = text
     new_text = re.sub(r"\n\s*\n", "\n", new_text)
     return remove_excess_new_lines(new_text, new_text == text)
@@ -38,8 +37,8 @@ def get_token_regex_for_sql(token_name):
     with open(token_regex_table_file, newline='') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',', quotechar='|')
         for row in csv_reader:
-            if(row[0] == token_name):
-                return row[1]
+            if(row[0].strip() == token_name):
+                return row[1].strip()
         return None
 
 
