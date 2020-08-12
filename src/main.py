@@ -10,12 +10,13 @@ input_folder_path = base_path + "input/"
 output_folder_path = base_path + "output/"
 templates_folder_path = base_path + "templates/"
 
-input_file_name = "test_table_1.sql"
+input_file_name = "my_db_ddl.sql"
 token_regex_table_file = base_path + "token_regex_table.csv"
 lang = "java"
 lang_file_ending = ".java"
 input_sql_file = input_folder_path + input_file_name
-template_file = templates_folder_path + lang + "_template.xml"
+template_type = "repo"
+template_file = templates_folder_path + lang + "_" + template_type + "_template.xml"
 
 # replaces all "\n \n"s with "\n" recursively
 def remove_excess_new_lines(text, removed_none_last=False):
@@ -67,7 +68,7 @@ def handle_fields(fields_root, sql_fields, raw_xml_template):
     final_fields_str = ""
     for field_str in sql_field_str.split(","):
         # new template
-        raw_xml_field_template = re.search(r"\<field\>((\n|.)*)\</field\>", raw_xml_template).group(1)
+        raw_xml_field_template = re.search(r"\<field\>((\n|.)*?)\</field\>", raw_xml_template).group(1)
         # gets rid of leading whitespace
         field_str = re.sub(r"^[\s]*", "", field_str)
         # loop thru the tokens found in the <field> ... </ filed> tags
@@ -81,7 +82,7 @@ def handle_fields(fields_root, sql_fields, raw_xml_template):
                     token_func = child.attrib['func']
                 raw_xml_field_template = handle_token(token_name, token_func, field_str, raw_xml_field_template)
         final_fields_str += raw_xml_field_template
-    field_tags_replacement = re.sub(r"\<field\>(\n|.)*\</field\>", final_fields_str, raw_xml_template, 1)
+    field_tags_replacement = re.sub(r"\<field\>((\n|.)*?)\</field\>", final_fields_str, raw_xml_template, 1)
     field_tags_replacement = remove_excess_new_lines(field_tags_replacement)
     return field_tags_replacement
 
@@ -114,7 +115,7 @@ def get_table_name(statement):
     return re.search(r"(?i)[\n\r.]*CREATE TABLE\s*([^\n\r ]*)", statement).group(1)
 
 def write_output(translation_str, table_name):
-    f = open(output_folder_path + table_name + "_translation" + lang_file_ending, "w")
+    f = open(output_folder_path + table_name +  "_" + template_type + "_translation" + lang_file_ending, "w")
     f.write(translation_str)
     f.close()
 

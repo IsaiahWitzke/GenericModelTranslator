@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class>
+package workreport;
+
+//
+//  all your imports go here
+//
+
+@Repository
+public class <token name="class_name" func="to_upper_camel_case" />Repository {
+
+    @Autowired
+    private NamedParameterJdbcTemplate db;
+
+    public List[<token name="class_name" func="to_upper_camel_case" />] findAll() {
+        return db.query("SELECT * FROM <token name="class_name" func="no_translation" />;",
+                BeanPropertyRowMapper.newInstance(<token name="class_name" func="to_upper_camel_case" />.class));
+    }
+
+    public Long create(<token name="class_name" func="to_upper_camel_case" /> <token name="class_name" func="to_lower_camel_case" />) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String create = String.join(" ", "INSERT INTO <token name="class_name" func="no_translation" />",
+                "(<field><token name="field_name" func="no_translation" />, </field>)",
+                "VALUES (<field>:<token name="field_name" func="to_lower_camel_case" />, </field>)");
+        db.update(create, new BeanPropertySqlParameterSource(<token name="class_name" func="to_lower_camel_case" />), keyHolder);
+        return Long.valueOf(keyHolder.getKeys().get("<token name="class_name" func="no_translation" />_id").toString());
+    }
+
+    public int update(<token name="class_name" func="to_upper_camel_case" /> <token name="class_name" func="to_lower_camel_case" />) {
+        String query = String.join(" ", "UPDATE <token name="class_name" func="no_translation" /> SET",
+                "<field><token name="field_name" func="no_translation" /> = :<token name="field_name" func="to_lower_camel_case" />, </field>",
+                "WHERE <token name="class_name" func="no_translation" />_id = :<token name="class_name" func="to_lower_camel_case" />Id");
+        return db.update(query, new BeanPropertySqlParameterSource(<token name="class_name" func="to_lower_camel_case" />));
+    }
+
+    public int delete(Long <token name="class_name" func="to_lower_camel_case" />Id) {
+        String query = "DELETE FROM <token name="class_name" func="no_translation" /> WHERE <token name="class_name" func="no_translation" />_id = :<token name="class_name" func="to_lower_camel_case" />Id";
+        return db.update(query,
+                new MapSqlParameterSource("<token name="class_name" func="to_lower_camel_case" />Id", <token name="class_name" func="to_lower_camel_case" />Id));
+    }
+}
+</class>

@@ -1,4 +1,5 @@
 token name,     sql regex,                              regex description
+,,,
 class_name,     (?i)[\n\r.]*CREATE TABLE\s*([^\n\r ]*), any word after "CREATE TABLE"
 nullable,       (?i)(?<!NOT )(NULL),                    any word "NULL" without a "NOT" in front
 not_nullable,   (?i)(NOT NULL),                         gives any "NOT NULL"

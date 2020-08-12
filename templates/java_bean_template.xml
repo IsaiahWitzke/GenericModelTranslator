@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class>
+package workreport;
+
+//
+//  all your imports go here
+//
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+class <token name="class_name" func="to_upper_camel_case" /> {
+<field>
+    <token name="id" func="to_id" />
+    <token name="nullable" func="to_nullable" />
+    <token name="not_nullable" func="to_not_nullable" />
+    <token name="max_size" func="to_max_size" />
+    private <token name="type" func="to_java_type"/> <token name="field_name" func="to_lower_camel_case" />;
+</field>
+    // TODO: add custom constructors here
+}
+</class>

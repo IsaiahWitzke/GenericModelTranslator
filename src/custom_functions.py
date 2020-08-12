@@ -29,3 +29,6 @@ def to_nullable(dummy):
 
 def to_id(dummy):
     return "@Id"
+
+def no_translation(input):
+    return input
